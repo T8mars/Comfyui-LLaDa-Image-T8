@@ -1,0 +1,30 @@
+{
+  "schema": "llada-image-native-bf16-acceptance-v1",
+  "scope": "Project-specific 1024x1024 default-schedule regression limits; not an official ComfyUI standard or a universal image-quality guarantee.",
+  "owner_authorized_nonzero_error": true,
+  "calibration_seed": 42,
+  "dimensions": [1024, 1024],
+  "defaults": {
+    "base": {"steps": 50, "guidance_scale": "5.0"},
+    "turbo": {"steps": 4, "guidance_scale": "1.0"}
+  },
+  "limits": {
+    "source_latents": {"max_absolute_error": 0.0625, "mean_absolute_error": 0.005, "root_mean_square_error": 0.0075},
+    "trajectory": {"max_absolute_error": 8.0, "mean_absolute_error": 0.15, "root_mean_square_error": 0.25},
+    "model_output": {"max_absolute_error": 8.0, "mean_absolute_error": 0.2, "root_mean_square_error": 0.35},
+    "image_text": {"max_absolute_error": 1.0, "mean_absolute_error": 0.02, "root_mean_square_error": 0.05},
+    "image_vq": {"max_absolute_error": 1.0, "mean_absolute_error": 0.005, "root_mean_square_error": 0.0125},
+    "image_editing": {"max_absolute_error": 1.0, "mean_absolute_error": 0.005, "root_mean_square_error": 0.01}
+  },
+  "fp32_dit_limits": {"max_absolute_error": 0.0005, "relative_l2": 0.00002},
+  "exact": "Metadata, complete tensor-key set, shapes, dtypes, all integers/booleans, prompt embeddings, semantic features, VQ token IDs, editing input, initial latent/noise, sigmas and first-step x remain exact; non-finite values always fail.",
+  "rationale": "Limits are calibrated from six seed-42 official/native comparisons and twelve full-weight DiT probes. Each category uses a rounded margin above its observed errors. Image MAE and RMSE, not the [0,1] maximum alone, constrain visible differences. These limits are frozen before independent holdouts; a holdout failure must be investigated, not automatically used to enlarge a limit.",
+  "holdout": {
+    "seed": 43,
+    "prompt": "A ceramic teapot beside two oranges on a wooden table, soft morning light.",
+    "editing_prompt": "Render the geometric image as a soft pastel illustration.",
+    "variants": ["base", "turbo"],
+    "modes": ["text", "editing"],
+    "note": "New seed and prompts test the diffusion and editing limits independently. VQ baseline token/features remain exact; the deterministic VQ prompt path is not claimed as a new holdout."
+  }
+}

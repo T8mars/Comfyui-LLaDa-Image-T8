@@ -1,0 +1,399 @@
+{
+  "native_gpu_revision": "1596f90f9c732e4f41fdd2824c104cb3751e1e98",
+  "fresh_smoke_revision": "aa28d7a4ec62d3e85865ee09c3a032664be9238b",
+  "scope": "Native Core evidence; standalone T8 nodes are not used by these workflows.",
+  "holdouts": [
+    {
+      "variant": "base",
+      "mode": "text",
+      "status": "accepted_native_bf16",
+      "settings": {
+        "reference": {
+          "moe_backend": "pytorch-eager-fp32-topk-reduction",
+          "producer": "official-pinned",
+          "height": "1024",
+          "attention_backend": "pytorch-sdpa-auto",
+          "variant": "base",
+          "official_code_revision": "b4dfa9a3e50d90d6718975ca1fa1b0edbc90d512",
+          "cuda_matmul_allow_tf32": "False",
+          "cudnn_enabled": "True",
+          "width": "1024",
+          "cudnn_allow_tf32": "True",
+          "negative_prompt": "",
+          "mode": "text",
+          "sdpa_priority": "flash,cudnn,efficient,math",
+          "prompt": "A ceramic teapot beside two oranges on a wooden table, soft morning light.",
+          "guidance_scale": "5.0",
+          "source_revision": "e4e2703f410f7ddb6ee8d6b09dac6a8ec5093039",
+          "steps": "50",
+          "seed": "43",
+          "schema": "llada-image-parity-v1",
+          "plan_sha256": "bdae10207994b18873241f8635360f0c8cf0c5ca333c0d24a25d0b1f668e80d0"
+        },
+        "candidate": {
+          "variant": "base",
+          "prompt": "A ceramic teapot beside two oranges on a wooden table, soft morning light.",
+          "plan_sha256": "bdae10207994b18873241f8635360f0c8cf0c5ca333c0d24a25d0b1f668e80d0",
+          "steps": "50",
+          "sdpa_priority": "flash,cudnn,efficient,math",
+          "guidance_scale": "5.0",
+          "negative_prompt": "",
+          "cuda_matmul_allow_tf32": "False",
+          "height": "1024",
+          "comfyui_revision": "1596f90f9c732e4f41fdd2824c104cb3751e1e98",
+          "mode": "text",
+          "cudnn_allow_tf32": "True",
+          "seed": "43",
+          "cudnn_enabled": "True",
+          "moe_backend": "pytorch-eager-fp32-topk-reduction",
+          "producer": "comfyui-core",
+          "attention_backend": "pytorch-sdpa-auto",
+          "width": "1024",
+          "schema": "llada-image-parity-v1"
+        }
+      },
+      "decoded_image_metrics": {
+        "shape": [
+          1,
+          1024,
+          1024,
+          3
+        ],
+        "reference_dtype": "torch.float32",
+        "candidate_dtype": "torch.float32",
+        "exact": false,
+        "elements": 3145728,
+        "differing_elements": 2554364,
+        "max_absolute_error": 0.470703125,
+        "mean_absolute_error": 0.0041061933152377605,
+        "root_mean_square_error": 0.01042767334729433,
+        "max_error_flat_index": 2478635,
+        "reference_at_max_error": 0.30859375,
+        "candidate_at_max_error": 0.779296875
+      },
+      "images": {
+        "reference": {
+          "path": "images/base-text-reference.png",
+          "sha256": "49365bea4983921ce6f510b495276342fb12788beb647e7f3da695eeca02d9cc"
+        },
+        "core": {
+          "path": "images/base-text-core.png",
+          "sha256": "3bbf600293f1223c2b98caeddda347ab9a2ff4a2bf099edcfd8fe9a4054cf7e2"
+        }
+      }
+    },
+    {
+      "variant": "base",
+      "mode": "editing",
+      "status": "accepted_native_bf16",
+      "settings": {
+        "reference": {
+          "mode": "editing",
+          "sdpa_priority": "flash,cudnn,efficient,math",
+          "producer": "official-pinned",
+          "guidance_scale": "5.0",
+          "moe_backend": "pytorch-eager-fp32-topk-reduction",
+          "cudnn_enabled": "True",
+          "width": "1024",
+          "schema": "llada-image-parity-v1",
+          "cuda_matmul_allow_tf32": "False",
+          "attention_backend": "pytorch-sdpa-auto",
+          "steps": "50",
+          "cudnn_allow_tf32": "True",
+          "variant": "base",
+          "prompt": "Render the geometric image as a soft pastel illustration.",
+          "plan_sha256": "bdae10207994b18873241f8635360f0c8cf0c5ca333c0d24a25d0b1f668e80d0",
+          "source_revision": "e4e2703f410f7ddb6ee8d6b09dac6a8ec5093039",
+          "negative_prompt": "",
+          "seed": "43",
+          "height": "1024",
+          "official_code_revision": "b4dfa9a3e50d90d6718975ca1fa1b0edbc90d512"
+        },
+        "candidate": {
+          "producer": "comfyui-core",
+          "sdpa_priority": "flash,cudnn,efficient,math",
+          "guidance_scale": "5.0",
+          "variant": "base",
+          "steps": "50",
+          "cuda_matmul_allow_tf32": "False",
+          "seed": "43",
+          "negative_prompt": "",
+          "prompt": "Render the geometric image as a soft pastel illustration.",
+          "schema": "llada-image-parity-v1",
+          "cudnn_enabled": "True",
+          "mode": "editing",
+          "moe_backend": "pytorch-eager-fp32-topk-reduction",
+          "width": "1024",
+          "plan_sha256": "bdae10207994b18873241f8635360f0c8cf0c5ca333c0d24a25d0b1f668e80d0",
+          "comfyui_revision": "1596f90f9c732e4f41fdd2824c104cb3751e1e98",
+          "attention_backend": "pytorch-sdpa-auto",
+          "cudnn_allow_tf32": "True",
+          "height": "1024"
+        }
+      },
+      "decoded_image_metrics": {
+        "shape": [
+          1,
+          1024,
+          1024,
+          3
+        ],
+        "reference_dtype": "torch.float32",
+        "candidate_dtype": "torch.float32",
+        "exact": false,
+        "elements": 3145728,
+        "differing_elements": 1954230,
+        "max_absolute_error": 0.03125,
+        "mean_absolute_error": 0.0016630186000838876,
+        "root_mean_square_error": 0.0023189072962850332,
+        "max_error_flat_index": 476875,
+        "reference_at_max_error": 0.890625,
+        "candidate_at_max_error": 0.859375
+      },
+      "images": {
+        "reference": {
+          "path": "images/base-editing-reference.png",
+          "sha256": "6a4859c4e713c392b56f48d3bffb41221f8af2d9247549dccd8369a08bd6df32"
+        },
+        "core": {
+          "path": "images/base-editing-core.png",
+          "sha256": "e52ca36ed6557478532468aaa0dedf53e83138e52f84ed910fc5e6351815d286"
+        }
+      }
+    },
+    {
+      "variant": "turbo",
+      "mode": "text",
+      "status": "accepted_native_bf16",
+      "settings": {
+        "reference": {
+          "producer": "official-pinned",
+          "variant": "turbo",
+          "guidance_scale": "1.0",
+          "schema": "llada-image-parity-v1",
+          "prompt": "A ceramic teapot beside two oranges on a wooden table, soft morning light.",
+          "mode": "text",
+          "cudnn_enabled": "True",
+          "plan_sha256": "58e0ab247b8cee2c29fea58f2c287e5ae74f37a29abdf5942a5a585d66333ca6",
+          "moe_backend": "pytorch-eager-fp32-topk-reduction",
+          "official_code_revision": "b4dfa9a3e50d90d6718975ca1fa1b0edbc90d512",
+          "height": "1024",
+          "width": "1024",
+          "attention_backend": "pytorch-sdpa-auto",
+          "steps": "4",
+          "cudnn_allow_tf32": "True",
+          "negative_prompt": "",
+          "sdpa_priority": "flash,cudnn,efficient,math",
+          "source_revision": "f4afc52d925bbac4e22a1c947111fc1f127e37e5",
+          "cuda_matmul_allow_tf32": "False",
+          "seed": "43"
+        },
+        "candidate": {
+          "mode": "text",
+          "attention_backend": "pytorch-sdpa-auto",
+          "producer": "comfyui-core",
+          "negative_prompt": "",
+          "seed": "43",
+          "guidance_scale": "1.0",
+          "cuda_matmul_allow_tf32": "False",
+          "prompt": "A ceramic teapot beside two oranges on a wooden table, soft morning light.",
+          "steps": "4",
+          "moe_backend": "pytorch-eager-fp32-topk-reduction",
+          "schema": "llada-image-parity-v1",
+          "cudnn_enabled": "True",
+          "height": "1024",
+          "variant": "turbo",
+          "comfyui_revision": "1596f90f9c732e4f41fdd2824c104cb3751e1e98",
+          "width": "1024",
+          "cudnn_allow_tf32": "True",
+          "sdpa_priority": "flash,cudnn,efficient,math",
+          "plan_sha256": "58e0ab247b8cee2c29fea58f2c287e5ae74f37a29abdf5942a5a585d66333ca6"
+        }
+      },
+      "decoded_image_metrics": {
+        "shape": [
+          1,
+          1024,
+          1024,
+          3
+        ],
+        "reference_dtype": "torch.float32",
+        "candidate_dtype": "torch.float32",
+        "exact": false,
+        "elements": 3145728,
+        "differing_elements": 2859317,
+        "max_absolute_error": 0.890625,
+        "mean_absolute_error": 0.015666326507925987,
+        "root_mean_square_error": 0.03681539371609688,
+        "max_error_flat_index": 1935869,
+        "reference_at_max_error": 0.103515625,
+        "candidate_at_max_error": 0.994140625
+      },
+      "images": {
+        "reference": {
+          "path": "images/turbo-text-reference.png",
+          "sha256": "bad2051f27915860181ddb9a9572ac653be08d84e1d7d08fe7630bc99b945565"
+        },
+        "core": {
+          "path": "images/turbo-text-core.png",
+          "sha256": "10db1b0dfbc17ea21719a7467f68b6ab75a4999885b7c969070197784447be19"
+        }
+      }
+    },
+    {
+      "variant": "turbo",
+      "mode": "editing",
+      "status": "accepted_native_bf16",
+      "settings": {
+        "reference": {
+          "cudnn_allow_tf32": "True",
+          "attention_backend": "pytorch-sdpa-auto",
+          "steps": "4",
+          "sdpa_priority": "flash,cudnn,efficient,math",
+          "cuda_matmul_allow_tf32": "False",
+          "producer": "official-pinned",
+          "width": "1024",
+          "moe_backend": "pytorch-eager-fp32-topk-reduction",
+          "guidance_scale": "1.0",
+          "seed": "43",
+          "mode": "editing",
+          "cudnn_enabled": "True",
+          "prompt": "Render the geometric image as a soft pastel illustration.",
+          "plan_sha256": "58e0ab247b8cee2c29fea58f2c287e5ae74f37a29abdf5942a5a585d66333ca6",
+          "schema": "llada-image-parity-v1",
+          "negative_prompt": "",
+          "source_revision": "f4afc52d925bbac4e22a1c947111fc1f127e37e5",
+          "official_code_revision": "b4dfa9a3e50d90d6718975ca1fa1b0edbc90d512",
+          "height": "1024",
+          "variant": "turbo"
+        },
+        "candidate": {
+          "negative_prompt": "",
+          "cuda_matmul_allow_tf32": "False",
+          "guidance_scale": "1.0",
+          "mode": "editing",
+          "moe_backend": "pytorch-eager-fp32-topk-reduction",
+          "steps": "4",
+          "prompt": "Render the geometric image as a soft pastel illustration.",
+          "sdpa_priority": "flash,cudnn,efficient,math",
+          "schema": "llada-image-parity-v1",
+          "attention_backend": "pytorch-sdpa-auto",
+          "seed": "43",
+          "height": "1024",
+          "cudnn_enabled": "True",
+          "producer": "comfyui-core",
+          "plan_sha256": "58e0ab247b8cee2c29fea58f2c287e5ae74f37a29abdf5942a5a585d66333ca6",
+          "comfyui_revision": "1596f90f9c732e4f41fdd2824c104cb3751e1e98",
+          "cudnn_allow_tf32": "True",
+          "variant": "turbo",
+          "width": "1024"
+        }
+      },
+      "decoded_image_metrics": {
+        "shape": [
+          1,
+          1024,
+          1024,
+          3
+        ],
+        "reference_dtype": "torch.float32",
+        "candidate_dtype": "torch.float32",
+        "exact": false,
+        "elements": 3145728,
+        "differing_elements": 1743321,
+        "max_absolute_error": 0.013671875,
+        "mean_absolute_error": 0.0012469127541407943,
+        "root_mean_square_error": 0.0017789999255910516,
+        "max_error_flat_index": 2089988,
+        "reference_at_max_error": 0.8671875,
+        "candidate_at_max_error": 0.853515625
+      },
+      "images": {
+        "reference": {
+          "path": "images/turbo-editing-reference.png",
+          "sha256": "ebd1ab9de93d5c8af0210414a8631e28c6b44ab8f923ed1057ff7aed14e00c11"
+        },
+        "core": {
+          "path": "images/turbo-editing-core.png",
+          "sha256": "b0b1f9e5a784faec11fb5081e4c00a7118953c6f926d5846157622cafd2fab44"
+        }
+      }
+    }
+  ],
+  "workflows": [
+    {
+      "path": "workflows/base_editing.json",
+      "sha256": "9f9f53593e9a735384fca7776e2fffc9a6826dd77fa7c88dd328619b3efb122f",
+      "prior_execution": "dc2e2f9e-eabb-45e1-9bb6-acf2dc071ed7",
+      "status": "verified_gpu_execution",
+      "pixel_sha256": "443aa6df5cf83505fee446ffac36b4ffb45b78f366ecc37484101d50b45c5766"
+    },
+    {
+      "path": "workflows/base_text.json",
+      "sha256": "945f3715cace84937bd11bdb9fe9638d0ed0e99f7bc0755cd0d1f537324979cd",
+      "prior_execution": "384e15f7-3edc-4b57-97c9-b0b21d946493",
+      "status": "verified_gpu_execution",
+      "pixel_sha256": "a6816aa1943dab901c805e882495807d78cd9acd8bdff44f30b23ae5ad294524"
+    },
+    {
+      "path": "workflows/base_vq.json",
+      "sha256": "f0cc9b71d863774a6201653c128cb5099eee891e0511cf57a61385dd8d07b611",
+      "prior_execution": "ef2a6dde-43c5-4abb-92f4-0391c3136072",
+      "status": "verified_gpu_execution",
+      "pixel_sha256": "725e379899cbc19418fc3685f667463b4d622c3b5d191840106c341ca93f99e5"
+    },
+    {
+      "path": "workflows/turbo_editing.json",
+      "sha256": "6705fbda2baf442a5c5523e29bcdad4f3e43cb62e555033dd56c34c4f9ff207b",
+      "prior_execution": "306bd1b8-adff-41a0-b439-d2a8dc86665f",
+      "status": "verified_gpu_execution",
+      "pixel_sha256": "8c5af3e72c5342529c882c1d84d061072a521a6f2d3d61a325f8b2f472f331d4"
+    },
+    {
+      "path": "workflows/turbo_text.json",
+      "sha256": "ddbc55ba912dfa1443b5fc9471d288128309d9983963b17dddf636faaf49d758",
+      "prior_execution": "d4fe6aee-558c-40a2-af3d-e038500a5400",
+      "status": "verified_gpu_execution",
+      "pixel_sha256": "829d5a50c317eba92ae89502e74e103a386ac636671a08859e3d662a768c5712"
+    },
+    {
+      "path": "workflows/turbo_vq.json",
+      "sha256": "33b98ca2888f0a8239d3d20d01d6bd950441824cedc7eb6d1cc96d3e8dc1d6b6",
+      "prior_execution": "5d14a760-0f84-4188-9be5-e4129e4f3c1b",
+      "status": "verified_gpu_execution",
+      "pixel_sha256": "7e7417ee4c93391960ddfe308bb7f73c6be8f64aeb1214a548c20b8036361c00"
+    }
+  ],
+  "fresh_frontend_smoke": [
+    {
+      "prompt_id": "d2dbaf9f-eb85-4434-99f2-26e07f54eeb6",
+      "status": "success",
+      "outputs": {
+        "11": {
+          "images": [
+            {
+              "filename": "Turbo-text_00001_.png",
+              "subfolder": "LLaDA-Image",
+              "type": "output"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "prompt_id": "d207bc1b-3458-4ccb-9dd1-8929f3df0e0c",
+      "status": "success",
+      "outputs": {
+        "12": {
+          "images": [
+            {
+              "filename": "Base-text_00001_.png",
+              "subfolder": "LLaDA-Image",
+              "type": "output"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
