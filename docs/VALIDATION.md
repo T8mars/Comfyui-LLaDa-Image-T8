@@ -21,7 +21,11 @@ two frontend/extension release-contract tests are included in this total.
 The test runner must import PyTorch before adding the reference dependency
 overlay to its module path. This is test-environment setup, not a model runtime
 requirement. Run `pytest tests --confcutdir=tests` with `COMFYUI_PATH` set to
-the clean ComfyUI directory, and install this package as `custom_nodes/llada_image_t8`.
+the clean ComfyUI directory. The manual installation directory is now
+`custom_nodes/Comfyui-LLaDa-Image-T8`, matching the repository name. Tests create
+a test-only `llada_image_t8` import alias pointing at the current checkout;
+they do not require an installation folder with that alias. Core's actual
+custom-node loader is also tested against the repository-named directory.
 
 Reference tests use a sibling `LLaDA-Image` source checkout pinned to
 `b4dfa9a3e50d90d6718975ca1fa1b0edbc90d512` and the following optional environment variables:
@@ -39,6 +43,11 @@ across dependency versions or attention backends. No test threshold was changed
 to make the fixed reference environment pass.
 
 ## Frontend acceptance
+
+Documentation/gallery update on 2026-09-06: 124 tests passed without skips in
+the same pinned runtime, including an additional real Core loader regression
+for the repository-named installation directory. Production runtime files and
+the six shipped workflow JSON files are unchanged from the original acceptance.
 
 All six examples were imported, queued and saved through the actual ComfyUI
 frontend. All six completed at 1024 x 1024 and matched the validated native Core

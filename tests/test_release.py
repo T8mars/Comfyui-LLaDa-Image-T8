@@ -22,3 +22,18 @@ def test_extension_has_five_namespaced_nodes_without_core_registration():
     assert all(node_id.startswith("T8") for node_id in ids)
     assert "T8LLaDAImageCheckpointLoader" in ids
     assert LLaDAImage not in comfy.supported_models.models
+
+
+def test_core_loads_repository_named_directory():
+    import nodes
+    import comfy.supported_models
+
+    package = Path(__file__).resolve().parents[1]
+    before = tuple(comfy.supported_models.models)
+    assert asyncio.run(nodes.load_custom_node(str(package)))
+    assert tuple(comfy.supported_models.models) == before
+    for name in (
+        "T8LLaDAImageCheckpointLoader",
+        "T8LLaDAImageVQConditioning",
+    ):
+        assert name in nodes.NODE_CLASS_MAPPINGS
