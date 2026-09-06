@@ -293,8 +293,9 @@ def test_aio_file_loads_model_clip_and_vae_through_checkpoint_path(
 
 
 @pytest.mark.parametrize("variant", ("base", "turbo"))
+@pytest.mark.parametrize("quantized", (False, True))
 def test_complete_tiny_aio_loads_and_runs_native_generation_and_editing(
-    tmp_path, monkeypatch, variant, caplog
+    tmp_path, monkeypatch, variant, quantized, caplog
 ):
     from tokenizers import Tokenizer
     from tokenizers.models import WordLevel
@@ -348,6 +349,25 @@ def test_complete_tiny_aio_loads_and_runs_native_generation_and_editing(
                 expected_clip[f"{prefix}bias"] = module.bias.detach().clone()
     expected_clip["llada2.model.lm_head.weight"].zero_()
     expected_clip["llada2.model.lm_head.weight"][32, 0] = 1.0
+    if quantized:
+        from comfy_kitchen.tensor import TensorWiseINT8Layout
+
+        linear_key = "layers.0.attention.to_q.weight"
+        expert_key = next(k for k in expected_clip if k.endswith(".experts.gate_proj.weight"))
+        for state, key, rotate in ((expected_model, linear_key, True), (expected_clip, expert_key, False)):
+            weight = state[key]
+            q, params = TensorWiseINT8Layout.quantize(
+                weight, per_channel=True, convrot=rotate, convrot_groupsize=16,
+            )
+            base = key.removesuffix(".weight")
+            conf = {"format": "int8_tensorwise"}
+            if rotate:
+                conf.update(convrot=True, convrot_groupsize=16)
+            else:
+                conf["num_experts"] = weight.shape[0]
+            state[key] = q
+            state[base + ".weight_scale"] = params.scale
+            state[base + ".comfy_quant"] = torch.tensor(list(json.dumps(conf).encode()), dtype=torch.uint8)
     adapter = llada_config.LLaDAImage(
         {"image_model": "llada_image", "variant": variant}
     )

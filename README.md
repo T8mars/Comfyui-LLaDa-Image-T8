@@ -1,5 +1,7 @@
 # Comfyui-LLaDa-Image-T8
 
+> 当前 checkout 为 INT8 + ConvRot **实验分支**，未发布。模型和使用限制见 [INT8 实验说明](docs/INT8.md)；下文的已发布版本及 BF16 验收结论保持原义，不能套用于 INT8。
+
 在 ComfyUI 中使用 **LLaDA-Image Base / Turbo**，支持文生图、VQ 语义生成和图片编辑。每个版本只需一个 **AIO 单体模型文件**，不需要修改 ComfyUI Core。
 
 [下载 T8 AIO 单体模型](https://huggingface.co/t8star/LLaDa-Image-Comfy/tree/main) · [原项目 inclusionAI/LLaDA-Image](https://github.com/inclusionAI/LLaDA-Image) · [前端工作流](example_workflows/) · [Registry](https://registry.comfy.org/t8star/llada-image-t8)

@@ -19,7 +19,10 @@ def load_checkpoint(path, embedding_directory=None, component=None, disable_dyna
 
     parameters = utils.calculate_parameters(state, prefix)
     weight_dtype = utils.weight_dtype(state, prefix)
-    if weight_dtype not in config.supported_inference_dtypes:
+    config.quant_config = utils.detect_layer_quantization(state, prefix)
+    if config.quant_config is not None:
+        weight_dtype = None
+    elif weight_dtype not in config.supported_inference_dtypes:
         raise ValueError("This release supports BF16/FP32 LLaDA-Image AIO checkpoints only.")
     load_device = model_management.get_torch_device()
     dtype = model_management.unet_dtype(
@@ -28,7 +31,8 @@ def load_checkpoint(path, embedding_directory=None, component=None, disable_dyna
         weight_dtype=weight_dtype,
     )
     manual_cast = model_management.unet_manual_cast(
-        dtype, load_device, config.supported_inference_dtypes
+        None if config.quant_config is not None else dtype,
+        load_device, config.supported_inference_dtypes
     )
     config.set_inference_dtype(dtype, manual_cast, device=load_device)
     model = clip = vae = None
