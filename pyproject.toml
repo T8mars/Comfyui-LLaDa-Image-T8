@@ -1,0 +1,21 @@
+[project]
+name = "llada-image-t8"
+version = "0.1.0"
+description = "Standalone LLaDA-Image Base and Turbo AIO models with native ComfyUI model management, text/VQ generation and editing."
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = ["tokenizers", "tqdm", "typing_extensions"]
+
+[project.urls]
+Repository = "https://github.com/T8mars/Comfyui-LLaDa-Image-T8"
+
+[tool.comfy]
+PublisherId = "t8star"
+DisplayName = "LLaDA-Image T8"
+requires-comfyui = ">=0.34.0"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402"]

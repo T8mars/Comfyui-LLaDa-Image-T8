@@ -1,0 +1,124 @@
+{
+  "status": "passed",
+  "date": "2026-09-06",
+  "package_version": "0.1.0",
+  "comfyui": {
+    "version": "0.34.0",
+    "commit": "250b2e9551a7bc7a8ebb5beb07e0fecd2983e04a",
+    "working_tree": "clean",
+    "frontend": "1.51.9"
+  },
+  "environment": {
+    "os": "Windows",
+    "gpu": "RTX 5090 Laptop 24 GiB",
+    "ram": "64 GiB",
+    "python": "3.10.21",
+    "torch": "2.8.0+cu128",
+    "transformers": "4.57.6",
+    "diffusers": "0.39.0"
+  },
+  "tests": {
+    "passed": 123,
+    "failed": 0,
+    "skipped": 0
+  },
+  "results": [
+    {
+      "workflow": "base_text.json",
+      "prompt_id": "a8171863-7596-4c43-9f32-19dc5748e5e8",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "saved_via_frontend": true,
+      "width": 1024,
+      "height": 1024,
+      "pixel_sha256": "a6816aa1943dab901c805e882495807d78cd9acd8bdff44f30b23ae5ad294524",
+      "native_baseline_pixel_exact": true,
+      "workflow_sha256": "f602a712ed3a3c9e902738957603ec72c9882bf92555697e9d38f01a75c2507d"
+    },
+    {
+      "workflow": "base_vq.json",
+      "prompt_id": "347e7fb5-0638-4cfc-ac05-8c57e911e368",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "saved_via_frontend": true,
+      "width": 1024,
+      "height": 1024,
+      "pixel_sha256": "725e379899cbc19418fc3685f667463b4d622c3b5d191840106c341ca93f99e5",
+      "native_baseline_pixel_exact": true,
+      "workflow_sha256": "990fb7b1b79ae549822d75c2fed15e3af219819b213adee501333ba3e5058b63"
+    },
+    {
+      "workflow": "base_editing.json",
+      "prompt_id": "ba0e7f5d-e1ee-4c02-99d7-14d4e651ef7e",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "saved_via_frontend": true,
+      "width": 1024,
+      "height": 1024,
+      "pixel_sha256": "443aa6df5cf83505fee446ffac36b4ffb45b78f366ecc37484101d50b45c5766",
+      "native_baseline_pixel_exact": true,
+      "workflow_sha256": "ad816f1a2dd5abb62260d00a8c8a1a024a42e530a7452273a8ea82b044f7b6b8"
+    },
+    {
+      "workflow": "turbo_text.json",
+      "prompt_id": "a06abcce-7d18-4e75-96e2-ea10e99a45e8",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "saved_via_frontend": true,
+      "width": 1024,
+      "height": 1024,
+      "pixel_sha256": "829d5a50c317eba92ae89502e74e103a386ac636671a08859e3d662a768c5712",
+      "native_baseline_pixel_exact": true,
+      "workflow_sha256": "068e2aa3fbb8580b6d22a9048657ae6451b19c2cee947678ab08b56257ddc52e"
+    },
+    {
+      "workflow": "turbo_vq.json",
+      "prompt_id": "d7d5d855-38d4-472b-9df7-a8c4c4841dc1",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "saved_via_frontend": true,
+      "width": 1024,
+      "height": 1024,
+      "pixel_sha256": "7e7417ee4c93391960ddfe308bb7f73c6be8f64aeb1214a548c20b8036361c00",
+      "native_baseline_pixel_exact": true,
+      "workflow_sha256": "d7a9a0c989801ef0f0bffbbc980429efa77ee5599503d7a08c71585ff8659804"
+    },
+    {
+      "workflow": "turbo_editing.json",
+      "prompt_id": "02e8d1a5-c980-4640-a9cb-e78601af52b3",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "saved_via_frontend": true,
+      "width": 1024,
+      "height": 1024,
+      "pixel_sha256": "8c5af3e72c5342529c882c1d84d061072a521a6f2d3d61a325f8b2f472f331d4",
+      "native_baseline_pixel_exact": true,
+      "workflow_sha256": "dc227ff2532d7290e5a2987f0e9fce3f341d95bf026969e2c7652bdab630d96b"
+    }
+  ],
+  "runtime_sha256": {
+    "runtime/loader.py": "00ca7b50dc856b4aec74da518b3fcd83ce7c73aeb62ce6f68a29e056ae953b51",
+    "__init__.py": "c222ad151562acb05c6106f19571b1d8eab514b3b6985995b90ade6ef1489716",
+    "runtime/model_base.py": "4728861852dd6e0230e0443b9367f831bac52d16f0704b5b5ce97b1254c12059",
+    "runtime/__init__.py": "6a11d782ed9a5650a8cf9e1e18b0365cf6bcc4d57f9b998f065b3ec4bbc6e345",
+    "nodes.py": "06a5f85b9c7d22256915eb0d19ba649377c9a73c9ae0c6930251c729eda12631",
+    "runtime/detection.py": "c378f033a30e28bab68671eff8c8c251992f789daef5c3f593a2e069c5f48cef",
+    "runtime/text_encoder.py": "0f691d280e6a5c0b8650bd2f440d3f1fdde53a7b8a9a7d74d9a4594344e426b8",
+    "runtime/conditioning.py": "e543bc3c5c62539a78e2c5d0766d6b3098a22ebfdbca9859cf605ff19adb4d32",
+    "runtime/config.py": "a3d6e41b88fc99d24a3fc9a56ba615b105bf47eb7a1e056baa6f6cba2a86a6c0",
+    "runtime/model.py": "f9238ea32ccd21d6f8cf434a559bde5ae5fcc67e1ca031fcc85cc826d96675cd"
+  },
+  "fresh_restart_smoke": {
+    "workflow": "turbo_text.json",
+    "prompt_id": "b77a3560-6ec5-4477-b6d5-59449e195ffa",
+    "status": "success",
+    "submitted_via": "ComfyUI frontend Run button after reimporting the shipped JSON",
+    "pixel_sha256": "829d5a50c317eba92ae89502e74e103a386ac636671a08859e3d662a768c5712",
+    "native_baseline_pixel_exact": true
+  },
+  "scope_notes": [
+    "Six full-resolution runs were saved through the frontend; API prompts are not shipped as examples.",
+    "A subsequent loader reload-factory disable_dynamic compatibility fix was verified by the final 123-test suite and a fresh-server Turbo text frontend run. Default inference mathematics did not change.",
+    "Pixel equality is against the validated native Core baseline in the same pinned environment, not a claim of bitwise identity across all upstream backends or dependency versions."
+  ]
+}

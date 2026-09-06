@@ -1,0 +1,6 @@
+.github/
+tests/
+.qa/
+*.safetensors
+*.pt
+*.pth

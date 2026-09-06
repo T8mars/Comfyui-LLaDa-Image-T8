@@ -1,0 +1,21 @@
+LLaDA-Image T8
+
+Standalone ComfyUI adaptation by T8mars, 2026.
+
+The ComfyUI integration, configuration and loader derive from ComfyUI
+(https://github.com/Comfy-Org/ComfyUI), licensed under GPL-3.0.
+Validated native implementation source: T8mars/ComfyUI commit
+dc323cad8de7eb4410c4736be58a88e89d3300b8, production-equivalent to
+1596f90f9c732e4f41fdd2824c104cb3751e1e98.
+Standalone changes relocate models into this package, add an AIO loader,
+namespace node IDs and provide frontend workflows. No Core registry is patched.
+
+runtime/model.py, runtime/conditioning.py and runtime/text_encoder.py contain
+adaptations of Apache-2.0 licensed LLaDA-Image / Hugging Face model code.
+Their original copyright and license notices are retained in those files.
+Original project: https://github.com/inclusionAI/LLaDA-Image
+Reference code revision: b4dfa9a3e50d90d6718975ca1fa1b0edbc90d512.
+Pinned model sources are recorded in manifests/*.source.json.
+
+Model weights are NOT distributed in this package. Users obtain them from the
+original publisher subject to the model's own license and terms.

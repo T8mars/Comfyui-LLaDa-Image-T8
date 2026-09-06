@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+*.safetensors
+*.pt
+*.pth
+.qa/
+models-source/
+dist/
+/node.zip
