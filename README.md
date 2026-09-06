@@ -2,7 +2,7 @@
 
 在 ComfyUI 中使用 **LLaDA-Image Base / Turbo**，支持文生图、VQ 语义生成和图片编辑。每个版本只需一个 **AIO 单体模型文件**，不需要修改 ComfyUI Core。
 
-[原项目 inclusionAI/LLaDA-Image](https://github.com/inclusionAI/LLaDA-Image) · [官方 Base 权重](https://huggingface.co/inclusionAI/LLaDA-Image) · [官方 Turbo 权重](https://huggingface.co/inclusionAI/LLaDA-Image-Turbo) · [前端工作流](example_workflows/) · [Registry](https://registry.comfy.org/t8star/llada-image-t8)
+[下载 T8 AIO 单体模型](https://huggingface.co/t8star/LLaDa-Image-Comfy/tree/main) · [原项目 inclusionAI/LLaDA-Image](https://github.com/inclusionAI/LLaDA-Image) · [前端工作流](example_workflows/) · [Registry](https://registry.comfy.org/t8star/llada-image-t8)
 
 **模型来源说明：**原模型与原始权重由 inclusionAI 发布；本仓库提供 T8 的 ComfyUI 适配与 AIO 转换工具。验收使用的单体模型是我们从官方权重转换打包的，不是官方直接发布的 AIO，也不是重新训练的模型。本仓库尚未合并到 ComfyUI Core。
 
@@ -38,9 +38,14 @@ Manager 中的显示名为 **LLaDA-Image T8**，Publisher 为 `t8star`。截至 
 
 Base 和 Turbo 各使用一个 BF16 AIO 文件，**每个约 49.26 GB**。AIO 已包含文本编码器、VAE 和 tokenizer，无需分别加载。
 
-**我们已经在本地完成 Base / Turbo AIO 转换和验收，但尚未公开托管这些大模型文件。** GitHub 只包含节点代码、转换工具、工作流和示例图片，不包含模型权重。
+**我们转换并验收的 AIO 模型托管在 [t8star/LLaDa-Image-Comfy](https://huggingface.co/t8star/LLaDa-Image-Comfy)。下载后直接使用，无需再次转换。** GitHub 只保存节点代码、转换工具、工作流和示例图片，模型权重放在 Hugging Face。
 
-上方 Hugging Face 链接是**官方原始分目录权重**，不能直接当作 AIO 使用。其他用户目前需要按 [模型下载与转换指南](docs/MODELS.md)，用本仓库工具转换，再将单体文件放入：
+| 模型 | 下载 |
+| --- | --- |
+| Base BF16 AIO | [LLaDA-Image-Base-BF16-AIO.safetensors](https://huggingface.co/t8star/LLaDa-Image-Comfy/resolve/main/LLaDA-Image-Base-BF16-AIO.safetensors?download=true) |
+| Turbo BF16 AIO | [LLaDA-Image-Turbo-BF16-AIO.safetensors](https://huggingface.co/t8star/LLaDa-Image-Comfy/resolve/main/LLaDA-Image-Turbo-BF16-AIO.safetensors?download=true) |
+
+下载后将单体文件放入：
 
 ```text
 ComfyUI/models/checkpoints/
@@ -48,7 +53,7 @@ ComfyUI/models/checkpoints/
 └── LLaDA-Image-Turbo-BF16-AIO.safetensors
 ```
 
-只使用其中一个版本时，只需准备对应文件。下载加转换，单版本建议预留至少 **110 GB 磁盘空间**。
+只使用其中一个版本时，只需下载对应文件，并预留足够磁盘空间（单个约 49.26 GB）。命令行下载、SHA-256 校验及自行转换方法见 [模型指南](docs/MODELS.md)。只有自行下载原始权重再转换时，才建议单版本预留至少 **110 GB**。
 
 ## 3. 打开工作流并运行
 
@@ -98,4 +103,4 @@ ComfyUI/models/checkpoints/
 
 许可证：[GPL-3.0](LICENSE)。Apache-2.0 来源代码保留原声明，详见 [NOTICE](NOTICE)；模型权重遵循原发布者的许可。
 
-English: Standalone ComfyUI nodes for LLaDA-Image Base/Turbo. Original weights are from inclusionAI; this project provides the AIO converter and ComfyUI integration. Install into `custom_nodes/Comfyui-LLaDa-Image-T8`, convert the checkpoint, and load a frontend workflow above. No Core patch is required; converted model weights are not hosted here.
+English: Standalone ComfyUI nodes for LLaDA-Image Base/Turbo. Original weights are from inclusionAI; T8 provides the AIO conversion and ComfyUI integration. Install into `custom_nodes/Comfyui-LLaDa-Image-T8`, download a converted checkpoint from [Hugging Face](https://huggingface.co/t8star/LLaDa-Image-Comfy), place it in `models/checkpoints`, and open a frontend workflow above. No further conversion or Core patch is required.

@@ -17,5 +17,6 @@ Original project: https://github.com/inclusionAI/LLaDA-Image
 Reference code revision: b4dfa9a3e50d90d6718975ca1fa1b0edbc90d512.
 Pinned model sources are recorded in manifests/*.source.json.
 
-Model weights are NOT distributed in this package. Users obtain them from the
-original publisher subject to the model's own license and terms.
+Model weights are NOT distributed in this code package. Original weights are
+from inclusionAI. T8-converted AIO artifacts are hosted separately at
+https://huggingface.co/t8star/LLaDa-Image-Comfy under the source model license.
