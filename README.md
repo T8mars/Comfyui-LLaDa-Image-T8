@@ -95,6 +95,17 @@ ComfyUI/models/checkpoints/
 - 当前主要验证 **BF16 AIO**，未验证 FP8 / GGUF。原项目提供其他权重格式，不代表本节点已经支持。
 - 六套范例均执行成功，但编辑效果仍取决于输入和指令，不保证所有图片的编辑质量。
 
+## 社媒与相关资源
+
+- [B站](https://space.bilibili.com/385085361)
+- [YouTube](https://www.youtube.com/@T8star-Aix/)
+- [API](https://api.seedance.nz/sign-up?aff=5f4w)
+- [在线 AI 应用](https://www.runninghub.ai/zh-cn/user-center/1907375370302308353/userPost?inviteCode=rh-v1121)
+- [ComfyUI 整合包](https://pan.quark.cn/s/264edb7e36bd)
+- [Hugging Face 主页](https://huggingface.co/t8star)
+
+部分链接含推广或邀请参数；这些外部服务不是运行本节点的必需依赖。
+
 ## 验证与来源
 
 六套前端工作流已实跑并保存，输出与固定环境下的原生 Core 实现基线逐像素一致；当前完整测试 **124 项通过、无跳过**（含安装目录加载回归测试）。这不代表所有依赖版本或后端都逐位一致。完整环境、已知差异及运行记录见 [验证说明](docs/VALIDATION.md) 和 [验收记录](docs/acceptance.json)。
