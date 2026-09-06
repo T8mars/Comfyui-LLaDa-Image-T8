@@ -7,7 +7,8 @@ full-weight INT8 frontend workflows completed at 1024 x 1024; see
 [INT8 scope and images](INT8.md) and [separate execution evidence](int8-evidence.json).
 The INT8 node suite passed 126 tests; 14 streaming quantizer tests passed
 separately, including GPU quantization. Both suites are now shipped together;
-the combined run passed **140 tests with no skips** in 7.68 seconds.
+the combined run passed **140 tests with no skips** in 7.82 seconds after removing
+a test-only grad-mode transition that failed for quantized tensors on newer PyTorch.
 INT8 is experimental, not pixel-exact to BF16 and not quality-approved.
 
 The BF16 acceptance JSON below is a historical snapshot: its loader hash belongs

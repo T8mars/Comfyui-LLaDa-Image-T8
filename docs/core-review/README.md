@@ -13,7 +13,7 @@ in `models/checkpoints/`. Open the UI JSON below and use `CheckpointLoaderSimple
 No custom nodes are required. These are unchanged frontend exports whose bytes
 match the six previously executed native workflows; no API prompt JSON is shipped here.
 The BF16 frontend evidence below was recorded at `648a8e6796151b1253072e22f4b5d4b45839b62a`.
-The INT8 test-only follow-up is `6125cc79e168b19f8b470832482bd9273da67f08`; runtime code is unchanged.
+The INT8 test-only follow-ups are `6125cc7` and `1f90ed9c588c9f9d470be6d8dad6f3813cac4f4f`; runtime code is unchanged.
 
 | Mode | Base | Turbo |
 | --- | --- | --- |
@@ -55,6 +55,12 @@ not claim full-model ConvRot, BF16-equivalent quality, or an inference speedup.
   exactly, and text/VQ/editing produce finite results. The focused pinned native
   suite passes **128 tests, no skips**. No new runtime quantization implementation
   or dependencies are needed.
+- The first CI run exposed a test-only grad-mode transition on newer PyTorch
+  (`Cannot set version_counter for inference tensor`). `1f90ed9` removes the
+  partial inference-mode wrapper, keeping checkpoint loading and sampling in
+  the same mode. The focused pinned suite still passes 128 tests; the detection
+  file also passes all 16 tests on PyTorch 2.14 CPU. No runtime code or tolerance
+  was changed. Check the PR for the current cross-platform CI status.
 - The existing Core MoE expert-view path does not preserve ConvRot flags, and
   whole-bank ConvRot dequantization rejects 3D weights in the tested Kitchen
   version. Rotated expert banks are therefore explicitly excluded from these
