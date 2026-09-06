@@ -24,7 +24,31 @@ hf download t8star/LLaDa-Image-Comfy LLaDA-Image-Turbo-BF16-AIO.safetensors --lo
 
 Windows 使用 `Get-FileHash 文件路径 -Algorithm SHA256`，Linux 使用 `sha256sum 文件路径`。源文件与转换输出校验清单（`.manifest.json`）也随模型发布。
 
-## 从官方原始权重复现转换（可选）
+## INT8 下载与量化（实验）
+
+INT8 混合量化下载（实验版，先更新 GitHub 节点，两个命令按需选一个）：
+
+```bash
+hf download t8star/LLaDa-Image-Comfy LLaDA-Image-Base-INT8-ConvRot-Mixed-AIO.safetensors --local-dir models/checkpoints
+hf download t8star/LLaDa-Image-Comfy LLaDA-Image-Turbo-INT8-ConvRot-Mixed-AIO.safetensors --local-dir models/checkpoints
+```
+
+两个文件各约 27.65 GB；SHA-256：
+
+```text
+4766571e1fc6ac8bc16940e46b91083b1a9a7a00f42750165b852e07a95e36fc  LLaDA-Image-Base-INT8-ConvRot-Mixed-AIO.safetensors
+57263ccd5e26acb67d50350d2bca7586dcdff4b5206beb17bd6b3cef25758853  LLaDA-Image-Turbo-INT8-ConvRot-Mixed-AIO.safetensors
+```
+
+自行量化已有 BF16 AIO 时，使用 ComfyUI 的 Python 环境（需 PyTorch、safetensors、Comfy Kitchen；本次验证 Kitchen 0.2.33）：
+
+```bash
+python scripts/quantize_comfyui_aio_int8.py /path/to/LLaDA-Image-Base-BF16-AIO.safetensors /path/to/LLaDA-Image-Base-INT8-ConvRot-Mixed-AIO.safetensors --source-sha256 0866b75effdc7598d88f4d5228af90fb2e38e7ed92c08708fba9f1598b8f01a2
+```
+
+默认使用 CUDA；`--dry-run` 仅检查转换计划。输出盘需至少约 32 GB 可用空间，源文件另算。转换拒绝覆盖已有输出或 partial，失败后不会自动续转。先读 [量化范围与限制](INT8.md)。
+
+## 原始权重到 BF16 AIO（可选）
 
 进入 `ComfyUI/custom_nodes/Comfyui-LLaDa-Image-T8` 后执行，并使用 ComfyUI 的 Python 环境。
 

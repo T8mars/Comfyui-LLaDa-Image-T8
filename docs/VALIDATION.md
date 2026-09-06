@@ -1,5 +1,22 @@
 # Standalone validation
 
+## INT8 update (2026-09-06)
+
+The current GitHub loader adds Core's native mixed-precision detection. Six
+full-weight INT8 frontend workflows completed at 1024 x 1024; see
+[INT8 scope and images](INT8.md) and [separate execution evidence](int8-evidence.json).
+The INT8 node suite passed 126 tests; 14 streaming quantizer tests passed
+separately, including GPU quantization. Both suites are now shipped together;
+the combined run passed **140 tests with no skips** in 7.68 seconds.
+INT8 is experimental, not pixel-exact to BF16 and not quality-approved.
+
+The BF16 acceptance JSON below is a historical snapshot: its loader hash belongs
+to the previous release and is deliberately not rewritten to certify a changed
+file. This update does not publish a new Registry version; Registry publication
+remains gated on fresh release acceptance. GitHub users can update directly.
+
+## BF16 release validation (historical)
+
 This package is tested against unmodified ComfyUI commit
 `250b2e9551a7bc7a8ebb5beb07e0fecd2983e04a` (0.34.0).
 The Core working tree remained clean; only this custom-node package was installed.

@@ -43,6 +43,10 @@ def main(require_acceptance=False):
     for path in sorted(examples.glob("*.json")):
         count, links = check_workflow(path)
         print(f"{path.name}: frontend graph, {count} nodes, {links} links")
+    assert {path.name for path in (examples / "int8").glob("*.json")} == EXPECTED
+    for path in sorted((examples / "int8").glob("*.json")):
+        count, links = check_workflow(path)
+        print(f"int8/{path.name}: frontend graph, {count} nodes, {links} links")
     for path in [ROOT / "nodes.py", *sorted((ROOT / "runtime").glob("*.py"))]:
         source = path.read_text(encoding="utf-8")
         tree = ast.parse(source)

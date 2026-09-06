@@ -1,0 +1,170 @@
+{
+  "status": "finished",
+  "scope": "Experimental mixed INT8 conversion; execution success is not quality acceptance",
+  "results": [
+    {
+      "prompt_id": "c0779573-ff04-4d3d-bb09-d3f59d5f5bbf",
+      "mode": "turbo-text",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "image": "docs/images/int8/turbo_text.png",
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "elapsed_seconds": 31.356,
+      "pixel_sha256": "f9c478c634bd76ca4615110238be4cc99d5104b759849da71c6daf59459ea89d",
+      "baseline_pixel_exact": false,
+      "baseline_mae": 0.08878450331345096,
+      "baseline_rmse": 0.13796988113300102,
+      "quality_accepted": null,
+      "workflow": "example_workflows/int8/turbo_text.json",
+      "workflow_sha256": "bbee9f3deea486c4beb9fc4f55fd3a4425869afd7f04d4fe20222f9ff1b45c39",
+      "png_sha256": "05906d7ca840a0c936c46eb96a8edf23528c4b2d62c33644f3f5f019b02814e7"
+    },
+    {
+      "prompt_id": "3dd35477-1a53-4af0-b26a-d7f37b9dd7e9",
+      "mode": "turbo-editing",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "image": "docs/images/int8/turbo_editing.png",
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "elapsed_seconds": 26.07,
+      "pixel_sha256": "4a332d314a12e73b40a16972704be8ecf93377e8dc7379b1c908c01f4bd8851b",
+      "baseline_pixel_exact": false,
+      "baseline_mae": 0.01324643777086842,
+      "baseline_rmse": 0.016721610845298652,
+      "quality_accepted": null,
+      "workflow": "example_workflows/int8/turbo_editing.json",
+      "workflow_sha256": "e6958ce821b3df5b5b81ed661d7f87b7d608eda6d0b2dc7cc37fae632383a6a9",
+      "png_sha256": "010ff3b6168f517e60b63e328edc8d0575ce8ee9de2ac61e2e2d46aae6870f19"
+    },
+    {
+      "prompt_id": "74659d05-8a33-4246-b31d-acd527d6455c",
+      "mode": "turbo-vq",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "image": "docs/images/int8/turbo_vq.png",
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "elapsed_seconds": 780.349,
+      "pixel_sha256": "b6b115861bcc27fe7524b593eba919df39b13e20b0797cb512527321563d9b7e",
+      "baseline_pixel_exact": false,
+      "baseline_mae": 0.14764039532031897,
+      "baseline_rmse": 0.19586271849270814,
+      "quality_accepted": null,
+      "workflow": "example_workflows/int8/turbo_vq.json",
+      "workflow_sha256": "576c2cccf709161992b20a164362d395a3d8d4129ee127f45a98be8685e83e1e",
+      "png_sha256": "360b62b13085ae9d94c2c96251811ae9d859d09da1f0a5b801c41cb2d4bbac4e"
+    },
+    {
+      "prompt_id": "1b4f02da-e00f-443d-80f7-4c4a72d0965b",
+      "mode": "base-text",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "image": "docs/images/int8/base_text.png",
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "elapsed_seconds": 165.495,
+      "pixel_sha256": "c96dcf155e95e711c428fcc663264a7f953e2bfbb8388f9fd41c8057404e5ad9",
+      "baseline_pixel_exact": false,
+      "baseline_mae": 0.07316986034119051,
+      "baseline_rmse": 0.12122419639110651,
+      "quality_accepted": null,
+      "workflow": "example_workflows/int8/base_text.json",
+      "workflow_sha256": "eb2c7b0fab7dc6d8db057d4d362b2ab0c61fec5f899e6da6f73ebc394d424a23",
+      "png_sha256": "b170003c6ea3ab828bf2727e4e8f90c425b9b1132f02f0b53757438fc5f6c2af"
+    },
+    {
+      "prompt_id": "46e7c326-d7fe-44d4-a45e-4a6ef438c8ae",
+      "mode": "base-editing",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "image": "docs/images/int8/base_editing.png",
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "elapsed_seconds": 358.131,
+      "pixel_sha256": "41609c9e37a3ba92a6f3f598080623f96a6c1667ecfd9d0271bb2ba907fc4dca",
+      "baseline_pixel_exact": false,
+      "baseline_mae": 0.01317308338639004,
+      "baseline_rmse": 0.023585171276278377,
+      "quality_accepted": null,
+      "workflow": "example_workflows/int8/base_editing.json",
+      "workflow_sha256": "bd090a6d8d8d9a05ffd44e0079fe2516e1451b83a433ab8df0f46083098d16b6",
+      "png_sha256": "ff79d2284b082526a294a8b2829afd7ee9a82f91ac2ee9160feed76cb999c578"
+    },
+    {
+      "prompt_id": "b255769b-5aa6-4225-8750-4036f5b2ea27",
+      "mode": "base-vq",
+      "status": "success",
+      "submitted_via": "ComfyUI frontend Run button",
+      "image": "docs/images/int8/base_vq.png",
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "elapsed_seconds": 957.051,
+      "pixel_sha256": "65d067027c1463393f1a0c5c5f04a53e18b152bee61b1315d25d576b31ff4f32",
+      "baseline_pixel_exact": false,
+      "baseline_mae": 0.15314725988051472,
+      "baseline_rmse": 0.21138160376618537,
+      "quality_accepted": null,
+      "workflow": "example_workflows/int8/base_vq.json",
+      "workflow_sha256": "dd84c51cfcb8f9d0c1521f41299bd48bba425133f189d294c1daf461bfaa88d3",
+      "png_sha256": "115048c48793bf62da83760e60d0ec4e885367b192dd3d07dc0f41c72b3df321"
+    }
+  ],
+  "running": [],
+  "pending": [],
+  "runtime_source_commit": "b74667b",
+  "core_base_commit": "250b2e9551a7bc7a8ebb5beb07e0fecd2983e04a",
+  "runtime_sha256": {
+    "nodes.py": "06a5f85b9c7d22256915eb0d19ba649377c9a73c9ae0c6930251c729eda12631",
+    "runtime/__init__.py": "6a11d782ed9a5650a8cf9e1e18b0365cf6bcc4d57f9b998f065b3ec4bbc6e345",
+    "runtime/conditioning.py": "e543bc3c5c62539a78e2c5d0766d6b3098a22ebfdbca9859cf605ff19adb4d32",
+    "runtime/config.py": "a3d6e41b88fc99d24a3fc9a56ba615b105bf47eb7a1e056baa6f6cba2a86a6c0",
+    "runtime/detection.py": "c378f033a30e28bab68671eff8c8c251992f789daef5c3f593a2e069c5f48cef",
+    "runtime/loader.py": "a5f4e78462aad8073629647451816030d87842327ac1dc261b8c3b470718ef11",
+    "runtime/model.py": "f9238ea32ccd21d6f8cf434a559bde5ae5fcc67e1ca031fcc85cc826d96675cd",
+    "runtime/model_base.py": "4728861852dd6e0230e0443b9367f831bac52d16f0704b5b5ce97b1254c12059",
+    "runtime/text_encoder.py": "0f691d280e6a5c0b8650bd2f440d3f1fdde53a7b8a9a7d74d9a4594344e426b8"
+  },
+  "models": [
+    {
+      "profile": "llada-int8-convrot-dit-rowwise-moe-v1",
+      "output_bytes": 27654644736,
+      "output_sha256": "4766571e1fc6ac8bc16940e46b91083b1a9a7a00f42750165b852e07a95e36fc",
+      "source_sha256": "0866b75effdc7598d88f4d5228af90fb2e38e7ed92c08708fba9f1598b8f01a2"
+    },
+    {
+      "profile": "llada-int8-convrot-dit-rowwise-moe-v1",
+      "output_bytes": 27654644784,
+      "output_sha256": "57263ccd5e26acb67d50350d2bca7586dcdff4b5206beb17bd6b3cef25758853",
+      "source_sha256": "198d9729aaf57df4d785f7c7a88179cb7ea4cbe09fa09ef5830662c82a444d8b"
+    }
+  ],
+  "native_core_turbo_text": {
+    "core_commit": "648a8e6796151b1253072e22f4b5d4b45839b62a",
+    "prompt_id": "d68a8b9b-b893-4e58-ae08-966f0f4e9102",
+    "elapsed_seconds": 29.836,
+    "pixel_sha256": "f9c478c634bd76ca4615110238be4cc99d5104b759849da71c6daf59459ea89d",
+    "matches_standalone_int8_pixels": true,
+    "matches_bf16_pixels": false,
+    "workflow": "docs/core-review/workflows/turbo_text_int8.json"
+  }
+}

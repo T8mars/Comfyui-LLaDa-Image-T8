@@ -1,6 +1,6 @@
 # Comfyui-LLaDa-Image-T8
 
-> 当前 checkout 为 INT8 + ConvRot **实验分支**，未发布。模型和使用限制见 [INT8 实验说明](docs/INT8.md)；下文的已发布版本及 BF16 验收结论保持原义，不能套用于 INT8。
+> 新增 **INT8 + ConvRot 混合量化实验版**：Base / Turbo 各约 27.65 GB，六套前端工作流已实跑。请先更新 GitHub 节点代码，旧 Registry `0.1.0` 不含 INT8 Loader 支持。量化并非无损，详见 [INT8 使用说明与真实图片](docs/INT8.md)。
 
 在 ComfyUI 中使用 **LLaDA-Image Base / Turbo**，支持文生图、VQ 语义生成和图片编辑。每个版本只需一个 **AIO 单体模型文件**，不需要修改 ComfyUI Core。
 
@@ -40,12 +40,16 @@ Manager 中的显示名为 **LLaDA-Image T8**，Publisher 为 `t8star`。截至 
 
 Base 和 Turbo 各使用一个 BF16 AIO 文件，**每个约 49.26 GB**。AIO 已包含文本编码器、VAE 和 tokenizer，无需分别加载。
 
+现在也提供约 **27.65 GB** 的 INT8 混合量化 AIO，磁盘体积减少约 **43.9%**。BF16 保留不变；INT8 已验证能运行，但尚未通过多提示词画质验收，不保证显存或速度按同比例改善。
+
 **我们转换并验收的 AIO 模型托管在 [t8star/LLaDa-Image-Comfy](https://huggingface.co/t8star/LLaDa-Image-Comfy)。下载后直接使用，无需再次转换。** GitHub 只保存节点代码、转换工具、工作流和示例图片，模型权重放在 Hugging Face。
 
 | 模型 | 下载 |
 | --- | --- |
 | Base BF16 AIO | [LLaDA-Image-Base-BF16-AIO.safetensors](https://huggingface.co/t8star/LLaDa-Image-Comfy/resolve/main/LLaDA-Image-Base-BF16-AIO.safetensors?download=true) |
 | Turbo BF16 AIO | [LLaDA-Image-Turbo-BF16-AIO.safetensors](https://huggingface.co/t8star/LLaDa-Image-Comfy/resolve/main/LLaDA-Image-Turbo-BF16-AIO.safetensors?download=true) |
+| Base INT8 + ConvRot Mixed AIO（实验） | [LLaDA-Image-Base-INT8-ConvRot-Mixed-AIO.safetensors](https://huggingface.co/t8star/LLaDa-Image-Comfy/resolve/main/LLaDA-Image-Base-INT8-ConvRot-Mixed-AIO.safetensors?download=true) |
+| Turbo INT8 + ConvRot Mixed AIO（实验） | [LLaDA-Image-Turbo-INT8-ConvRot-Mixed-AIO.safetensors](https://huggingface.co/t8star/LLaDa-Image-Comfy/resolve/main/LLaDA-Image-Turbo-INT8-ConvRot-Mixed-AIO.safetensors?download=true) |
 
 下载后将单体文件放入：
 
@@ -55,17 +59,25 @@ ComfyUI/models/checkpoints/
 └── LLaDA-Image-Turbo-BF16-AIO.safetensors
 ```
 
-只使用其中一个版本时，只需下载对应文件，并预留足够磁盘空间（单个约 49.26 GB）。命令行下载、SHA-256 校验及自行转换方法见 [模型指南](docs/MODELS.md)。只有自行下载原始权重再转换时，才建议单版本预留至少 **110 GB**。
+只需下载要用的一个文件，无需同时下载 BF16 和 INT8。INT8 也放在同一 checkpoints 目录。命令行下载、SHA-256 校验及自行转换方法见 [模型指南](docs/MODELS.md)。只有自行下载原始权重再转换时，才建议单版本预留至少 **110 GB**。
 
 ## 3. 打开工作流并运行
 
-以下六个 JSON **全部是前端 UI 工作流，不是 API 格式**。下载后拖进 ComfyUI，或按 **Ctrl+O** 打开。
+BF16 和 INT8 各有六套范例，**全部是前端 UI 工作流，不是 API 格式**。下载后拖进 ComfyUI，或按 **Ctrl+O** 打开。以下为保留不变的 BF16 范例：
 
 | 功能 | Base（50 步） | Turbo（4 步） |
 | --- | --- | --- |
 | 文生图：输入提示词生成图片 | [base_text.json](example_workflows/base_text.json) | [turbo_text.json](example_workflows/turbo_text.json) |
 | VQ 生成：先生成语义 token，再生成图片，无需输入图 | [base_vq.json](example_workflows/base_vq.json) | [turbo_vq.json](example_workflows/turbo_vq.json) |
 | 图片编辑：输入图片和修改指令 | [base_editing.json](example_workflows/base_editing.json) | [turbo_editing.json](example_workflows/turbo_editing.json) |
+
+INT8 混合量化范例（请先在节点目录执行 `git pull --ff-only`，再重启 ComfyUI）：
+
+| 功能 | Base INT8 | Turbo INT8 |
+| --- | --- | --- |
+| 文生图 | [前端工作流](example_workflows/int8/base_text.json) | [前端工作流](example_workflows/int8/turbo_text.json) |
+| VQ 生成 | [前端工作流](example_workflows/int8/base_vq.json) | [前端工作流](example_workflows/int8/turbo_vq.json) |
+| 图片编辑 | [前端工作流](example_workflows/int8/base_editing.json) | [前端工作流](example_workflows/int8/turbo_editing.json) |
 
 1. 在 **LLaDA-Image AIO Loader (T8)** 中选择对应的 Base / Turbo 模型。
 2. 修改提示词；编辑工作流还需要在 **Load Image** 中上传图片，可以用 [随附测试输入图](example_workflows/inputs/llada_image_edit_source.png)。
@@ -75,7 +87,7 @@ ComfyUI/models/checkpoints/
 
 ## 效果示例
 
-以下六张均为本仓库工作流在 **1024 × 1024** 下的真实验收输出，未经后期修改；点击可查看原图。每列使用对应版本模型，参数以链接中的工作流为准。
+以下六张均为 **BF16** 工作流在 **1024 × 1024** 下的真实验收输出，未经后期修改；点击可查看原图。INT8 的六张实际输出单独展示在 [INT8 图库](docs/INT8.md#实际输出)，不混用 BF16 验收结论。
 
 | 功能 | Base | Turbo |
 | --- | --- | --- |
@@ -94,7 +106,7 @@ ComfyUI/models/checkpoints/
 - **Turbo 的 4 步仅指扩散阶段。** VQ 的语义 token 生成仍然较慢，不代表整个流程只需几秒。
 - 模型较大，加载、显存与内存之间的卸载需要时间；其他显卡、系统及低内存配置未做完整验收。
 - VQ 节点与空白 latent 的宽高应一致，且为 16 的倍数；编辑尺寸会对齐到 32 的倍数。
-- 当前主要验证 **BF16 AIO**，未验证 FP8 / GGUF。原项目提供其他权重格式，不代表本节点已经支持。
+- **BF16 AIO** 保留原验收记录；INT8 是已完成六套实跑的实验性混合量化版本，DiT 使用 ConvRot、MoE 专家不旋转，其他组件保留原精度。未验证 FP8 / GGUF。
 - 六套范例均执行成功，但编辑效果仍取决于输入和指令，不保证所有图片的编辑质量。
 
 ## 社媒与相关资源
@@ -110,7 +122,7 @@ ComfyUI/models/checkpoints/
 
 ## 验证与来源
 
-六套前端工作流已实跑并保存，输出与固定环境下的原生 Core 实现基线逐像素一致；当前完整测试 **124 项通过、无跳过**（含安装目录加载回归测试）。这不代表所有依赖版本或后端都逐位一致。完整环境、已知差异及运行记录见 [验证说明](docs/VALIDATION.md) 和 [验收记录](docs/acceptance.json)。
+当前合并测试集 **140 项通过、无跳过**，包括节点、前端格式及量化转换器回归。BF16 的六套前端输出与固定环境下的原生 Core 基线逐像素一致，历史验收记录保留不变。INT8 的六套实跑独立记录在 [INT8 验证说明](docs/INT8.md)，输出不与 BF16 逐像素一致。完整环境及 BF16 历史证据见 [验证说明](docs/VALIDATION.md) 和 [验收记录](docs/acceptance.json)。
 
 感谢 [inclusionAI/LLaDA-Image](https://github.com/inclusionAI/LLaDA-Image) 提供原模型与算法，以及 [ComfyUI](https://github.com/Comfy-Org/ComfyUI) 提供原生模型管理与节点接口。本适配不在推理时联网，不运行 Diffusers pipeline。代码接口和后续 Core 迁移设计见 [架构说明](docs/ARCHITECTURE.md)。
 

@@ -12,7 +12,8 @@ and place the [Base/Turbo AIO checkpoints](https://huggingface.co/t8star/LLaDa-I
 in `models/checkpoints/`. Open the UI JSON below and use `CheckpointLoaderSimple`.
 No custom nodes are required. These are unchanged frontend exports whose bytes
 match the six previously executed native workflows; no API prompt JSON is shipped here.
-The reviewed head is `648a8e6796151b1253072e22f4b5d4b45839b62a`.
+The BF16 frontend evidence below was recorded at `648a8e6796151b1253072e22f4b5d4b45839b62a`.
+The INT8 test-only follow-up is `6125cc79e168b19f8b470832482bd9273da67f08`; runtime code is unchanged.
 
 | Mode | Base | Turbo |
 | --- | --- | --- |
@@ -34,7 +35,35 @@ The later `648a8e6` change fixes test isolation only; production code is unchang
 The local database was locked by another instance during this temporary server
 run; generation succeeded, but this smoke run does not claim database QA.
 
-## Official-reference comparison
+## Experimental INT8 ConvRot
+
+The converted Base/Turbo mixed INT8 AIO files are approximately 27.65 GB each.
+252 DiT linears use Kitchen ConvRot INT8 (group size 256); 57 MoE expert banks
+use unrotated rowwise INT8. All other tensor bytes remain unchanged. This does
+not claim full-model ConvRot, BF16-equivalent quality, or an inference speedup.
+
+- [Native Turbo text UI export](workflows/turbo_text_int8.json), executed through
+  the frontend with `CheckpointLoaderSimple` on native Core `648a8e6`: success,
+  1024 x 1024, 29.836 seconds. Pixel SHA-256:
+  `f9c478c634bd76ca4615110238be4cc99d5104b759849da71c6daf59459ea89d`.
+- This native output matches the standalone INT8 Turbo text output, **not BF16**.
+  [Six standalone INT8 workflows and images](../INT8.md) and
+  [portable execution evidence](../int8-evidence.json) are separate evidence;
+  they do not establish six full-weight native INT8 workflow runs.
+- Core commit `6125cc7` adds tiny Base/Turbo mixed-checkpoint tests through the
+  standard checkpoint loader: stored INT8 weights/scales/metadata roundtrip
+  exactly, and text/VQ/editing produce finite results. The focused pinned native
+  suite passes **128 tests, no skips**. No new runtime quantization implementation
+  or dependencies are needed.
+- The existing Core MoE expert-view path does not preserve ConvRot flags, and
+  whole-bank ConvRot dequantization rejects 3D weights in the tested Kitchen
+  version. Rotated expert banks are therefore explicitly excluded from these
+  artifacts; this PR does not change the shared MoE kernel.
+
+Quality remains experimental. The BF16 comparison and tolerance profile below
+do not certify the quantized artifacts.
+
+## Official-reference comparison (BF16)
 
 The paired images below were generated independently from the pinned official
 implementation and native Core `1596f90`, before this PR refresh. Their PNG hashes
