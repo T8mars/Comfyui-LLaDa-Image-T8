@@ -42,7 +42,7 @@ Base 和 Turbo 各使用一个 BF16 AIO 文件，**每个约 49.26 GB**。AIO �
 
 现在也提供约 **27.65 GB** 的 INT8 混合量化 AIO，磁盘体积减少约 **43.9%**。BF16 保留不变；INT8 已验证能运行，但尚未通过多提示词画质验收，不保证显存或速度按同比例改善。
 
-**我们转换并验收的 AIO 模型托管在 [t8star/LLaDa-Image-Comfy](https://huggingface.co/t8star/LLaDa-Image-Comfy)。下载后直接使用，无需再次转换。** GitHub 只保存节点代码、转换工具、工作流和示例图片，模型权重放在 Hugging Face。
+**T8 转换的 AIO 模型托管在 [t8star/LLaDa-Image-Comfy](https://huggingface.co/t8star/LLaDa-Image-Comfy)。BF16 保留原验收记录，INT8 单独标为实验版；下载后无需再次转换。** GitHub 只保存节点代码、转换工具、工作流和示例图片，模型权重放在 Hugging Face。
 
 | 模型 | 下载 |
 | --- | --- |
