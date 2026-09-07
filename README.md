@@ -1,5 +1,7 @@
 # Comfyui-LLaDa-Image-T8
 
+[简体中文](README.md) | [English](README_EN.md)
+
 > 新增 **INT8 + ConvRot 混合量化实验版**：Base / Turbo 各约 27.65 GB，六套前端工作流已实跑。请先更新 GitHub 节点代码，旧 Registry `0.1.0` 不含 INT8 Loader 支持。量化并非无损，详见 [INT8 使用说明与真实图片](docs/INT8.md)。
 
 在 ComfyUI 中使用 **LLaDA-Image Base / Turbo**，支持文生图、VQ 语义生成和图片编辑。每个版本只需一个 **AIO 单体模型文件**，不需要修改 ComfyUI Core。
@@ -34,7 +36,7 @@ git clone https://github.com/T8mars/Comfyui-LLaDa-Image-T8.git ComfyUI/custom_no
 
 **关于名字：**手动安装目录现在统一为 `custom_nodes/Comfyui-LLaDa-Image-T8`，与 GitHub 仓库同名。旧文档的 `llada_image_t8` 只是人为指定的目录别名，并非另一个节点包。旧安装仍可使用；如需统一名字，关闭 ComfyUI 后重命名即可，**不要同时保留两份安装**。Manager 自动安装时可能采用 Registry ID `llada-image-t8` 作为目录名，这是正常的。
 
-Manager 中的显示名为 **LLaDA-Image T8**，Publisher 为 `t8star`。截至 2026-09-06，`0.1.0` 已上传，但版本状态仍为 Pending；审核可用前请用上面的手动安装方式。
+Manager 中的显示名为 **LLaDA-Image T8**，Publisher 为 `t8star`。Registry `0.1.0` 当前状态为 **Active**，可通过 Manager 安装；该版本仅支持 BF16。使用 INT8 时请按上面的手动安装方式获取最新 GitHub 代码。
 
 ## 2. 准备模型
 
@@ -127,5 +129,3 @@ INT8 混合量化范例（请先在节点目录执行 `git pull --ff-only`，再
 感谢 [inclusionAI/LLaDA-Image](https://github.com/inclusionAI/LLaDA-Image) 提供原模型与算法，以及 [ComfyUI](https://github.com/Comfy-Org/ComfyUI) 提供原生模型管理与节点接口。本适配不在推理时联网，不运行 Diffusers pipeline。代码接口和后续 Core 迁移设计见 [架构说明](docs/ARCHITECTURE.md)。
 
 许可证：[GPL-3.0](LICENSE)。Apache-2.0 来源代码保留原声明，详见 [NOTICE](NOTICE)；模型权重遵循原发布者的许可。
-
-English: Standalone ComfyUI nodes for LLaDA-Image Base/Turbo. Original weights are from inclusionAI; T8 provides the AIO conversion and ComfyUI integration. Install into `custom_nodes/Comfyui-LLaDa-Image-T8`, download a converted checkpoint from [Hugging Face](https://huggingface.co/t8star/LLaDa-Image-Comfy), place it in `models/checkpoints`, and open a frontend workflow above. No further conversion or Core patch is required.
