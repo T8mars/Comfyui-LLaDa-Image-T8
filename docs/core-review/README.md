@@ -60,7 +60,8 @@ not claim full-model ConvRot, BF16-equivalent quality, or an inference speedup.
   partial inference-mode wrapper, keeping checkpoint loading and sampling in
   the same mode. The focused pinned suite still passes 128 tests; the detection
   file also passes all 16 tests on PyTorch 2.14 CPU. No runtime code or tolerance
-  was changed. Check the PR for the current cross-platform CI status.
+  was changed. Current-head Unit Tests and Execution Tests pass on Linux,
+  macOS and Windows; lint, server-launch and policy checks also pass.
 - The existing Core MoE expert-view path does not preserve ConvRot flags, and
   whole-bank ConvRot dequantization rejects 3D weights in the tested Kitchen
   version. Rotated expert banks are therefore explicitly excluded from these
