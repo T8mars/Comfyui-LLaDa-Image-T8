@@ -1,5 +1,24 @@
 # Standalone validation
 
+## Core review sync (2026-09-08)
+
+The standalone runtime now mirrors the fixes accepted by the active review of
+[ComfyUI PR #16095](https://github.com/Comfy-Org/ComfyUI/pull/16095) through
+Core commit `277946dece4cde4279a8ac5ba496769e00ae0e9a`. The sync covers clear
+scheduler model validation, direct strided SigVQ patch projection, sigma-aware
+masked latent scaling, shared decoder RoPE/attention-bias construction,
+conditioning-dimension derivation, explicit memory estimation, and malformed
+component-metadata rejection. It does not mean the Core PR has merged.
+
+The expanded standalone suite collects 161 cases. On the available Torch
+2.14.0+cpu environment, 145 passed, 15 optional official-weight/reference
+fixtures skipped, and the known strict BF16 SigVQ cross-version comparison was
+kept but deselected. That exact CPU build changes BF16 convolution ordering;
+the old patchwise implementation fails the same check. The direct-convolution
+path and official conditioning/transformer parity passed on the stable RTX 5090
+CUDA environment used for Core review. The expanded VAE matrix passed its FP32
+and CPU BF16 random-weight cases; the official-weight case remains opt-in.
+
 ## INT8 update (2026-09-06)
 
 The current GitHub loader adds Core's native mixed-precision detection. Six
@@ -38,7 +57,7 @@ two frontend/extension release-contract tests are included in this total.
 
 The test runner must import PyTorch before adding the reference dependency
 overlay to its module path. This is test-environment setup, not a model runtime
-requirement. Run `pytest tests --confcutdir=tests` with `COMFYUI_PATH` set to
+requirement. Run `pytest --rootdir=tests --confcutdir=tests tests` with `COMFYUI_PATH` set to
 the clean ComfyUI directory. The manual installation directory is now
 `custom_nodes/Comfyui-LLaDa-Image-T8`, matching the repository name. Tests create
 a test-only `llada_image_t8` import alias pointing at the current checkout;

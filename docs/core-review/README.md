@@ -5,6 +5,10 @@ These workflows require the **native Core PR branch**, not this repository's
 standalone T8 nodes. Keeping evidence here does not add example media or conversion
 tools to the Core runtime diff. This is not a claim that Core has merged support.
 
+Current review head: [`277946dece4cde4279a8ac5ba496769e00ae0e9a`](https://github.com/Comfy-Org/ComfyUI/commit/277946dece4cde4279a8ac5ba496769e00ae0e9a).
+It is synchronized with the then-current upstream `master`; all 15 GitHub checks
+pass and all 12 review threads are resolved. The PR remains open and unmerged.
+
 ## Run the native workflows
 
 Check out `T8mars/ComfyUI` branch `llada-image-core`, install Core's requirements,
@@ -13,7 +17,13 @@ in `models/checkpoints/`. Open the UI JSON below and use `CheckpointLoaderSimple
 No custom nodes are required. These are unchanged frontend exports whose bytes
 match the six previously executed native workflows; no API prompt JSON is shipped here.
 The BF16 frontend evidence below was recorded at `648a8e6796151b1253072e22f4b5d4b45839b62a`.
-The INT8 test-only follow-ups are `6125cc7`, `1f90ed9` and `64f29173630a6dc2353ffe7875cb906023c24bc7`; runtime code is unchanged. The latest commit moves test imports to module scope per review feedback.
+The earlier INT8 test-only follow-ups are `6125cc7`, `1f90ed9` and
+`64f29173630a6dc2353ffe7875cb906023c24bc7`. Later review fixes culminate in
+`277946d`, covering scheduler validation, direct strided SigVQ patch embedding,
+sigma-aware masked latent scaling, shared text-decoder RoPE/mask construction,
+conditioning-dimension derivation, explicit memory estimation, and strict AIO
+component-metadata validation. Those runtime fixes are also mirrored by the
+standalone T8 node; the historical images and workflows remain unchanged.
 
 | Mode | Base | Turbo |
 | --- | --- | --- |
@@ -109,9 +119,14 @@ does not establish good editing quality for all inputs.
 
 ## Tests and limits
 
-- At `648a8e6`, upstream [Unit Tests](https://github.com/Comfy-Org/ComfyUI/actions/runs/34034252784)
-  and [Execution Tests](https://github.com/Comfy-Org/ComfyUI/actions/runs/34034252809)
-  passed on Linux, macOS and Windows, alongside lint, server-launch and policy checks.
+- At current head `277946d`, all 15 checks pass, including
+  [Unit Tests](https://github.com/Comfy-Org/ComfyUI/actions/runs/34207220634) and
+  [Execution Tests](https://github.com/Comfy-Org/ComfyUI/actions/runs/34207220461)
+  on Linux, macOS and Windows, alongside lint, server-launch, policy and CodeRabbit checks.
+- The final review-focused CPU run passed 104 tests with 13 optional skips and
+  one isolated cross-version check; the metadata-detection suite passed 31 tests.
+  The expanded VAE matrix passed on CPU and CUDA, and the 16 official
+  conditioning/transformer CUDA parity cases passed on the RTX 5090 host.
 - 126 focused native/reference and existing detection tests passed without skips
   after merging the latest Core, with Python 3.10.21, Torch 2.8.0+cu128,
   Transformers 4.57.6 / Diffusers 0.39.0 reference fixtures, and comfy-kitchen 0.2.33.

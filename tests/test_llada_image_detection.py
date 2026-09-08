@@ -152,6 +152,61 @@ def test_detection_uses_shapes_and_checkpoint_config():
     }
 
 
+def test_detection_derives_omitted_transformer_conditioning_dimensions():
+    metadata = make_metadata(component_configs=make_component_configs())
+    config = json.loads(metadata["config"])
+    del config["transformer"]["cap_feat_dim"]
+    del config["transformer"]["semantic_feat_dim"]
+
+    detected = detect_config(
+        make_state_dict(), PREFIX, {"config": json.dumps(config)}
+    )
+
+    assert detected["cap_feat_dim"] == 8
+    assert detected["semantic_feat_dim"] == 10
+
+
+@pytest.mark.parametrize(
+    ("component", "value"),
+    (
+        ("text_encoder", []),
+        ("queryformer", "invalid"),
+        ("text_projection", []),
+        ("sigvq", "invalid"),
+    ),
+)
+def test_detection_rejects_nonmapping_component_config(component, value):
+    with pytest.raises(ValueError, match=rf"{component} config must be a mapping"):
+        detect_config(
+            make_state_dict(), PREFIX, make_metadata(component_configs={component: value})
+        )
+
+
+@pytest.mark.parametrize(
+    ("component", "key", "value"),
+    (
+        ("text_projection", "projection_dim", None),
+        ("text_projection", "projection_dim", 0),
+        ("text_projection", "projection_dim", -1),
+        ("text_projection", "projection_dim", 8.0),
+        ("text_projection", "projection_dim", True),
+        ("sigvq", "semantic_embed_dim", None),
+        ("sigvq", "semantic_embed_dim", 0),
+        ("sigvq", "semantic_embed_dim", -1),
+        ("sigvq", "semantic_embed_dim", 10.0),
+        ("sigvq", "semantic_embed_dim", True),
+    ),
+)
+def test_detection_rejects_invalid_component_dimension(component, key, value):
+    component_configs = make_component_configs()
+    component_configs[component][key] = value
+
+    with pytest.raises(ValueError, match=rf"{component}.{key} must be a positive integer"):
+        detect_config(
+            make_state_dict(), PREFIX, make_metadata(component_configs=component_configs)
+        )
+
+
 def test_supported_model_sets_exact_flow_sampling_contract():
     model_config = model_config_from_unet(
         make_state_dict(), PREFIX, metadata=make_metadata("base")
@@ -160,6 +215,7 @@ def test_supported_model_sets_exact_flow_sampling_contract():
     assert isinstance(model_config, llada_config.LLaDAImage)
     assert model_config.sampling_settings == {"multiplier": 1.0, "shift": 1.0}
     assert model_config.latent_format.latent_channels == 128
+    assert model_config.memory_usage_factor == 2.0
 
 
 def test_detection_rejects_missing_variant_metadata():

@@ -10,6 +10,8 @@
 
 **模型来源说明：**原模型与原始权重由 inclusionAI 发布；本仓库提供 T8 的 ComfyUI 适配与 AIO 转换工具。验收使用的单体模型是我们从官方权重转换打包的，不是官方直接发布的 AIO，也不是重新训练的模型。本仓库尚未合并到 ComfyUI Core。
 
+**CORE 评审状态（2026-09-08）：**原生支持仍在 [ComfyUI PR #16095](https://github.com/Comfy-Org/ComfyUI/pull/16095) 审核中，当前评审提交为 [`277946d`](https://github.com/Comfy-Org/ComfyUI/pull/16095/commits/277946dece4cde4279a8ac5ba496769e00ae0e9a)，15 项 CI 全部通过、12 个审查线程全部解决，但尚未合并。本独立节点已同步本轮评审产生的运行时修复。
+
 ## 1. 安装节点
 
 要求 **ComfyUI 0.34.0+、Python 3.10+**。已验证环境：Windows、RTX 5090 Laptop 24 GiB 显存、64 GiB 内存、PyTorch 2.8.0+cu128；这不是最低配置保证。
@@ -124,7 +126,7 @@ INT8 混合量化范例（请先在节点目录执行 `git pull --ff-only`，再
 
 ## 验证与来源
 
-当前合并测试集 **140 项通过、无跳过**，包括节点、前端格式及量化转换器回归。BF16 的六套前端输出与固定环境下的原生 Core 基线逐像素一致，历史验收记录保留不变。INT8 的六套实跑独立记录在 [INT8 验证说明](docs/INT8.md)，输出不与 BF16 逐像素一致。完整环境及 BF16 历史证据见 [验证说明](docs/VALIDATION.md) 和 [验收记录](docs/acceptance.json)。
+独立节点原发布基线为 **140 项通过、无跳过**。同步 CORE 评审修复后，测试集扩展到 161 个用例；当前 CPU 环境实跑为 **145 项通过、15 项可选夹具跳过、1 项已知 Torch 2.14 CPU 严格跨版本检查单独保留**。CORE 当前提交的 15 项 CI 均通过，稳定 CUDA 环境中的官方条件编码/Transformer 对照也已通过。BF16 六套前端输出与固定环境下的原生 Core 基线逐像素一致，历史验收记录保留不变；INT8 六套实跑独立记录在 [INT8 验证说明](docs/INT8.md)，不借用 BF16 的质量结论。完整环境及证据见 [验证说明](docs/VALIDATION.md)、[BF16 验收记录](docs/acceptance.json) 和 [CORE 审核资料](docs/core-review/README.md)。
 
 感谢 [inclusionAI/LLaDA-Image](https://github.com/inclusionAI/LLaDA-Image) 提供原模型与算法，以及 [ComfyUI](https://github.com/Comfy-Org/ComfyUI) 提供原生模型管理与节点接口。本适配不在推理时联网，不运行 Diffusers pipeline。代码接口和后续 Core 迁移设计见 [架构说明](docs/ARCHITECTURE.md)。
 

@@ -10,6 +10,8 @@ Use **LLaDA-Image Base and Turbo** in ComfyUI for text-to-image, VQ semantic gen
 
 **Model provenance:** inclusionAI publishes the original models and weights. This repository provides T8's ComfyUI integration and AIO conversion tools. The checkpoints used for validation were converted and packaged from the official weights; they are not official upstream AIO releases and were not retrained. Native support is under review and has not been merged into ComfyUI Core.
 
+**CORE review status (2026-09-08):** native support remains under review in [ComfyUI PR #16095](https://github.com/Comfy-Org/ComfyUI/pull/16095). The current review head is [`277946d`](https://github.com/Comfy-Org/ComfyUI/pull/16095/commits/277946dece4cde4279a8ac5ba496769e00ae0e9a); all 15 CI checks pass and all 12 review threads are resolved, but the PR is not merged. This standalone node now includes the runtime fixes produced by that review.
+
 ## 1. Install the nodes
 
 Requirements: **ComfyUI 0.34.0+ and Python 3.10+**. The validated host used Windows, an RTX 5090 Laptop GPU with 24 GiB VRAM, 64 GiB RAM, and PyTorch 2.8.0+cu128. This is not a minimum hardware guarantee.
@@ -122,7 +124,7 @@ Some links contain referral or invitation parameters. These external services ar
 
 ## Validation and attribution
 
-The combined suite passes **140 tests with no skips**, including node behavior, frontend graph validation, and quantizer regression tests. The six BF16 frontend outputs are pixel-identical to the native Core baseline in the pinned environment, and their historical acceptance record is unchanged. Six INT8 runs are recorded separately in the [INT8 validation guide](docs/INT8.md); INT8 outputs are not pixel-identical to BF16. See the [validation notes](docs/VALIDATION.md) and [BF16 acceptance record](docs/acceptance.json) for the complete environment and historical evidence.
+The original standalone release baseline passed **140 tests with no skips**. After syncing the Core review fixes, the suite contains 161 cases; the current CPU run reports **145 passed, 15 optional-fixture skips, and one retained strict cross-version check isolated to the known Torch 2.14 CPU behavior**. All 15 checks pass on the current Core head, and the official conditioning/transformer comparison also passes in the stable CUDA environment. The six BF16 frontend outputs remain pixel-identical to the native Core baseline in the pinned environment. Six INT8 runs are recorded separately in the [INT8 validation guide](docs/INT8.md) and do not inherit the BF16 quality conclusion. See the [validation notes](docs/VALIDATION.md), [BF16 acceptance record](docs/acceptance.json), and [Core review evidence](docs/core-review/README.md).
 
 Thanks to [inclusionAI/LLaDA-Image](https://github.com/inclusionAI/LLaDA-Image) for the original models and algorithms, and to [ComfyUI](https://github.com/Comfy-Org/ComfyUI) for native model management and node interfaces. The integration performs no network requests during inference and does not run a Diffusers pipeline. See the [architecture guide](docs/ARCHITECTURE.md) for interface and Core-migration details.
 

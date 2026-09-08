@@ -11,7 +11,12 @@ from comfy.cli_args import args
 args.cpu = True
 
 import comfy.ops
-from llada_image_t8.runtime.conditioning import QueryFormer, SigVQ, TextProjection
+from llada_image_t8.runtime.conditioning import (
+    QueryFormer,
+    SigVQ,
+    SigVQPatchEmbed,
+    TextProjection,
+)
 
 
 UPSTREAM_MODEL = (
@@ -24,7 +29,7 @@ UPSTREAM_MODEL = (
 UPSTREAM_MODEL_SHA256 = (
     "1460e875568f80c3c153ff07888a1b855bd1f5c290db3d16bad5288d29fcbbf2"
 )
-pytestmark = pytest.mark.skipif(
+requires_upstream = pytest.mark.skipif(
     not UPSTREAM_MODEL.is_file(),
     reason="optional parity test requires a sibling LLaDA-Image checkout",
 )
@@ -58,6 +63,7 @@ def assert_bfloat16_parity(actual, expected):
     assert float(absolute_error.mean()) <= 1.0 / 256.0
 
 
+@requires_upstream
 def test_queryformer_matches_reference():
     reference_class = load_reference_module().LLaDAImageQueryFormerModel
     config = {
@@ -87,6 +93,7 @@ def test_queryformer_matches_reference():
     torch.testing.assert_close(actual, expected, atol=2e-5, rtol=2e-5)
 
 
+@requires_upstream
 def test_text_projection_matches_reference():
     reference_class = load_reference_module().LLaDAImageTextProjectionModel
     config = {
@@ -113,6 +120,7 @@ def test_text_projection_matches_reference():
     torch.testing.assert_close(actual, expected, atol=2e-5, rtol=2e-5)
 
 
+@requires_upstream
 def test_sigvq_image_and_token_paths_match_reference():
     reference_class = load_reference_module().LLaDAImageSigVQModel
     config = {
@@ -155,6 +163,7 @@ def test_sigvq_image_and_token_paths_match_reference():
     assert torch.equal(actual_tokens, token_ids)
 
 
+@requires_upstream
 def test_queryformer_bfloat16_matches_reference():
     device = parity_device()
     reference_class = load_reference_module().LLaDAImageQueryFormerModel
@@ -190,6 +199,7 @@ def test_queryformer_bfloat16_matches_reference():
     assert_bfloat16_parity(actual, expected)
 
 
+@requires_upstream
 def test_text_projection_bfloat16_matches_reference():
     device = parity_device()
     reference_class = load_reference_module().LLaDAImageTextProjectionModel
@@ -224,6 +234,7 @@ def test_text_projection_bfloat16_matches_reference():
     assert_bfloat16_parity(actual, expected)
 
 
+@requires_upstream
 def test_sigvq_bfloat16_image_and_token_paths_match_reference():
     device = parity_device()
     reference_class = load_reference_module().LLaDAImageSigVQModel
@@ -273,6 +284,46 @@ def test_sigvq_bfloat16_image_and_token_paths_match_reference():
         actual_semantic, expected_tokens.semantic_features, rtol=0, atol=0
     )
     assert torch.equal(actual_tokens, token_ids)
+
+
+def test_sigvq_patch_embed_matches_patchwise_projection():
+    torch.manual_seed(7)
+    patch_size = 2
+    model = SigVQPatchEmbed(
+        in_channels=3,
+        hidden_size=5,
+        patch_size=patch_size,
+        dtype=torch.float32,
+        device=torch.device("cpu"),
+        operations=comfy.ops.disable_weight_init,
+    )
+    torch.nn.init.normal_(model.proj.weight)
+    torch.nn.init.normal_(model.proj.bias)
+    pixel_values = torch.randn(2, 3, 6, 8)
+    batch_size, channels, height, width = pixel_values.shape
+    grid_height = height // patch_size
+    grid_width = width // patch_size
+    patches = pixel_values.reshape(
+        batch_size,
+        channels,
+        grid_height,
+        patch_size,
+        grid_width,
+        patch_size,
+    )
+    patches = patches.permute(0, 2, 4, 1, 3, 5).reshape(
+        batch_size * grid_height * grid_width,
+        channels,
+        patch_size,
+        patch_size,
+    )
+    expected = model.proj(patches).flatten(1).reshape(
+        batch_size, grid_height * grid_width, -1
+    )
+
+    actual = model(pixel_values)
+
+    torch.testing.assert_close(actual, expected, atol=1e-6, rtol=1e-6)
 
 
 @pytest.mark.parametrize("component", (QueryFormer, TextProjection, SigVQ))

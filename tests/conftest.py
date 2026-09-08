@@ -3,11 +3,17 @@ import importlib.util
 import sys
 from pathlib import Path
 
+import torch
+
 core = Path(os.environ["COMFYUI_PATH"])
 sys.path.insert(0, str(core))
 sys.path.insert(0, str(core / "custom_nodes"))
 from comfy.cli_args import args
-args.cpu = True
+
+args.cpu = not (
+    os.environ.get("LLADA_IMAGE_PARITY_DEVICE") == "cuda"
+    and torch.cuda.is_available()
+)
 
 # Test-only alias: import this checkout regardless of its installation folder name.
 package = Path(__file__).resolve().parents[1]
